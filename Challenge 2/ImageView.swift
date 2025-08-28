@@ -33,7 +33,7 @@ struct ImageView: View{
                 .padding()
         }
         .sheet(isPresented: $cameraViewShown){
-            //CameraView()
+            CameraView(image: $selectedImage)
         }
         PhotosPicker(selection: $selectedItem, matching: .images){
             Text("Pick Image")
