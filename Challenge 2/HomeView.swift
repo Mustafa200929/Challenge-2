@@ -10,13 +10,12 @@ import SwiftUI
 struct HomeView: View {
     var body: some View {
         VStack{
-            
-            
-            
             HStack{
                 HStack{
                     Image(systemName: "trophy")
-                    Text("200") //integrate with backend later
+                    Button{}label:{
+                        Text("200")
+                    }//integrate with backend later
                 }
                 .padding()
                 .background(Color.yellow)
@@ -30,23 +29,25 @@ struct HomeView: View {
             .frame(maxWidth: .infinity)
             .padding()
             .background(Color.teal)
-            .padding(.bottom, 40)
-           
-           Text("Past Outfits")
+            .padding(.bottom, 20)
+            
+            Text("Past Outfits")
             TabView {
                 ForEach(1..<4){ index in
                     Image("Photo \(index)")
                         .resizable()
                         .scaledToFit()
+                        .clipShape(RoundedRectangle(cornerRadius: 40))
                 }
             }
             .tabViewStyle(.page)
-            .frame(height: 300)
-           Spacer()
+            .frame(height: 400)
+            .padding(.bottom, 20)
+           
             
             Text("200 credits")
             Button{
-               //fill later
+                //fill later
             }label:{
                 Text("Solve daily quest")
                     .frame(width: 250)
@@ -55,13 +56,12 @@ struct HomeView: View {
                     .foregroundStyle(Color.black)
                     .background(Color.teal)
                     .clipShape(Capsule())
-                    .padding(.bottom, 40)
-                
+                    .padding(.bottom, 20)
             }
             
             Text("10-100 credits")
             Button{
-               //fill later
+                //fill later
             }label:{
                 Text("Scan your outfit")
                     .frame(width: 250)
@@ -70,12 +70,11 @@ struct HomeView: View {
                     .foregroundStyle(Color.black)
                     .background(Color.teal)
                     .clipShape(Capsule())
-                    
             }
-            
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.pink.ignoresSafeArea())
+        .background(Color.pink)
+        .ignoresSafeArea()
     }
 }
 
