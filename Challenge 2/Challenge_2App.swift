@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct Challenge_2App: App {
+    @State var Image: UIImage? = nil
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ImageSegmentation()
         }
     }
 }
