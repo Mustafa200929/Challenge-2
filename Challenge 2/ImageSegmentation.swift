@@ -44,7 +44,11 @@ func convertCIImageToCGImage(input: CIImage) -> CGImage! {
 }
 
 func applyMask(mainImage: CIImage, maskImage: CIImage) -> CIImage {
-    let compositeImage = mainImage.applyingFilter("CIBlendWithMask", parameters:[kCIInputMaskImageKey: maskImage])
+    let scaleX = mainImage.extent.width / maskImage.extent.width
+    let scaleY = mainImage.extent.height / maskImage.extent.height
+    let scaleTransform = CGAffineTransform(scaleX: scaleX, y: scaleY)
+    let scaledMaskImage = maskImage.transformed(by: scaleTransform)
+    let compositeImage = mainImage.applyingFilter("CIBlendWithMask", parameters:[kCIInputMaskImageKey: scaledMaskImage])
     return compositeImage
 }
 
