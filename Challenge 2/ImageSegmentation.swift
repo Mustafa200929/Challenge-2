@@ -8,9 +8,9 @@ import SwiftUI
 import Vision
 import UIKit
 import CoreImage
-import CoreImage.CIFilterBuiltins
 
-func makeMask(image: UIImage) -> Image {
+
+func makeMask(image: UIImage) -> (Image,Image) {
     guard let ciImage = CIImage(image: image) else {
         fatalError("Could not get cgImage from UIImage")
     }
@@ -33,9 +33,10 @@ func makeMask(image: UIImage) -> Image {
     let maskBuffer = result.pixelBuffer
     let maskImage = CIImage(cvPixelBuffer: maskBuffer)
     let compositeImage = applyMask(mainImage: ciImage, maskImage: maskImage)
-    
-    let finalImage = Image(decorative: convertCIImageToCGImage(input: compositeImage), scale: 1)
-    return finalImage
+    let (bottomCroppedImage,topCroppedImage) = cropImage(inputImage: compositeImage)
+    let finalBottomImage = Image(decorative: convertCIImageToCGImage(input: bottomCroppedImage), scale: 1)
+    let finalTopImage = Image(decorative: convertCIImageToCGImage(input: topCroppedImage), scale: 1)
+    return (finalBottomImage, finalTopImage)
 }
 
 func convertCIImageToCGImage(input: CIImage) -> CGImage! {
@@ -52,21 +53,31 @@ func applyMask(mainImage: CIImage, maskImage: CIImage) -> CIImage {
     return compositeImage
 }
 
+func cropImage(inputImage: CIImage) -> (CIImage, CIImage) {
+    let width = inputImage.extent.width
+    let height = inputImage.extent.height
+    let bottomCropRect = CGRect(x: 0, y: 0, width: width, height: height/2)
+    let topCropRect = CGRect(x:0, y:height/2, width:width, height:height)
+    let bottomCroppedImage = inputImage.cropped(to: bottomCropRect)
+    let topCroppedImage = inputImage.cropped(to: topCropRect)
+    return (bottomCroppedImage, topCroppedImage)
+}
+
 struct ImageSegmentation: View {
-    @State private var finalImage: Image?
+    @State private var finalBottomImage: Image?
+    @State private var finalTopImage: Image?
     var body: some View {
-        ZStack{
-            if let finalImage {
-                finalImage
-                    .resizable()
-            }
+        VStack{
+          finalTopImage
+          finalBottomImage
         }
         .onAppear{
             guard let uiImage = UIImage(named: "Screenshot 2025-08-22 at 7.00.59 PM") else{
                 fatalError("Cannot find image")
             }
-            let maskedImage = makeMask(image: uiImage)
-            finalImage = maskedImage
+            let (bottomImage, topImage) = makeMask(image: uiImage)
+            finalBottomImage = bottomImage
+            finalTopImage = topImage
         }
     }
 }
