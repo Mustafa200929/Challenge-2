@@ -8,10 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var selectedImage: UIImage?
     var body: some View {
-        ImageSegmentation()
+        NavigationStack{
+              ImageView(selectedImage: $selectedImage)
+        }
     }
 }
+
 
 #Preview {
     ContentView()

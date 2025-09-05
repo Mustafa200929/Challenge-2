@@ -11,6 +11,26 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		380F06402E691BB300E1B2B4 /* PhotoImportation */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = PhotoImportation;
+			sourceTree = "<group>";
+		};
+		380F06542E6A756E00E1B2B4 /* Classifiers */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Classifiers;
+			sourceTree = "<group>";
+		};
+		380F066F2E6A8E0F00E1B2B4 /* Models */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Models;
+			sourceTree = "<group>";
+		};
+		380F06702E6A8E7700E1B2B4 /* ModelViews */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ModelViews;
+			sourceTree = "<group>";
+		};
 		38FCB7082E596F6D00F3A176 /* Challenge 2 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "Challenge 2";
@@ -32,6 +52,10 @@
 		38FCB6FD2E596F6D00F3A176 = {
 			isa = PBXGroup;
 			children = (
+				380F06702E6A8E7700E1B2B4 /* ModelViews */,
+				380F066F2E6A8E0F00E1B2B4 /* Models */,
+				380F06542E6A756E00E1B2B4 /* Classifiers */,
+				380F06402E691BB300E1B2B4 /* PhotoImportation */,
 				38FCB7082E596F6D00F3A176 /* Challenge 2 */,
 				38FCB7072E596F6D00F3A176 /* Products */,
 			);
@@ -61,6 +85,10 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				380F06402E691BB300E1B2B4 /* PhotoImportation */,
+				380F06542E6A756E00E1B2B4 /* Classifiers */,
+				380F066F2E6A8E0F00E1B2B4 /* Models */,
+				380F06702E6A8E7700E1B2B4 /* ModelViews */,
 				38FCB7082E596F6D00F3A176 /* Challenge 2 */,
 			);
 			name = "Challenge 2";
