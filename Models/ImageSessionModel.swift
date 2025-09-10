@@ -17,6 +17,7 @@ struct ImageSession: Identifiable {
     var bottomBrightness: CGFloat?
     var topBrightness: CGFloat?
     var points: Int = 0
-    var tagLine: String?
-    
+    var challengePassed: Bool?
 }
+
+

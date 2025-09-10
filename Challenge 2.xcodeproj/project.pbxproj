@@ -31,6 +31,16 @@
 			path = ModelViews;
 			sourceTree = "<group>";
 		};
+		380F06FC2E6D1B7B00E1B2B4 /* Extensions */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		380F07002E6E97CB00E1B2B4 /* Views */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Views;
+			sourceTree = "<group>";
+		};
 		38FCB7082E596F6D00F3A176 /* Challenge 2 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "Challenge 2";
@@ -52,6 +62,8 @@
 		38FCB6FD2E596F6D00F3A176 = {
 			isa = PBXGroup;
 			children = (
+				380F07002E6E97CB00E1B2B4 /* Views */,
+				380F06FC2E6D1B7B00E1B2B4 /* Extensions */,
 				380F06702E6A8E7700E1B2B4 /* ModelViews */,
 				380F066F2E6A8E0F00E1B2B4 /* Models */,
 				380F06542E6A756E00E1B2B4 /* Classifiers */,
@@ -89,6 +101,8 @@
 				380F06542E6A756E00E1B2B4 /* Classifiers */,
 				380F066F2E6A8E0F00E1B2B4 /* Models */,
 				380F06702E6A8E7700E1B2B4 /* ModelViews */,
+				380F06FC2E6D1B7B00E1B2B4 /* Extensions */,
+				380F07002E6E97CB00E1B2B4 /* Views */,
 				38FCB7082E596F6D00F3A176 /* Challenge 2 */,
 			);
 			name = "Challenge 2";

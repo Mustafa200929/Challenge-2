@@ -14,72 +14,72 @@ struct ImageView: View{
     @State private var finalBottomImage: Image?
     @State private var finalTopImage: Image?
     @StateObject var processor = ImageProcessor()
+    @EnvironmentObject var pointsProcessor: PointsProcessor
     var body: some View{
-        if let selectedImage{
-            /*Image(uiImage: selectedImage)
-                .resizable()
-                .scaledToFit()
-                .clipShape(RoundedRectangle(cornerRadius: 40))
-                .padding()*/
-            if let finalTopImage{
-                finalTopImage
+        VStack{
+            if let selectedImage{
+                Image(uiImage: selectedImage)
                     .resizable()
                     .scaledToFit()
+                    .clipShape(RoundedRectangle(cornerRadius: 40))
                     .padding()
-            }
-            if let finalBottomImage{
-                finalBottomImage
-                    .resizable()
-                    .scaledToFit()
-                    .padding()
-            }
                 
-            Button{
-                processor.execute(image: selectedImage)
-                let points = processor.currentSession.points
-                guard let topType = processor.currentSession.topType,
-                      let bottomType = processor.currentSession.bottomType,
-                      let bottomBrightness = processor.currentSession.bottomBrightness,
-                      let topBrightness = processor.currentSession.topBrightness
-                else{
-                    return()
+                NavigationLink{
+                    ResultsViewScan().environmentObject(processor)
+                        .onAppear{
+                            processor.execute(image: selectedImage)
+                            pointsProcessor.addPoints(value: processor.currentSession.points)
+                        }
+                }label:{
+                    Text("Evaluate Image")
+                        .frame(width: 130)
+                        .padding()
+                        .foregroundStyle(Colours.text)
+                        .background(Colours.airForceBlue)
+                        .clipShape(Capsule())
                 }
-                if let bottomImage = processor.currentSession.bottomImage,
-                   let topImage = processor.currentSession.topImage{
-                    finalTopImage = Image(uiImage: topImage)
-                    finalBottomImage = Image(uiImage: bottomImage)
-                }
-                print("Points: \(points)/5, topType: \(topType), bottomType: \(bottomType), bottomBrightness: \(bottomBrightness), topBrightness: \(topBrightness)")
-            }label:{
-                Text("Evaluate Image")
+            }else{
+                Text("No image selected")
+                    .foregroundStyle(.gray)
+                    .padding()
             }
-        }else{
-            Text("No image selected")
-                .foregroundStyle(.gray)
-                .padding()
-        }
-        Button{
-            cameraViewShown.toggle()
-        }label:{
-            Text("Take photo")
-                .padding()
-        }
-        .sheet(isPresented: $cameraViewShown){
-            CameraView(image: $selectedImage)
-        }
-        PhotosPicker(selection: $selectedItem, matching: .images){
-            Text("Pick Image")
-                .padding()
-                .onChange(of: selectedItem){ item in
-                    if let item = item{
-                        Task{
-                            if let data = try? await item.loadTransferable(type: Data.self){
-                                let image = UIImage(data: data)
-                                selectedImage = image
+            Button{
+                cameraViewShown.toggle()
+            }label:{
+                Text("Take photo")
+                    .frame(width: 130)
+                    .padding()
+                    .foregroundStyle(Colours.text)
+                    .background(Colours.cambridgeBlue1)
+                    .clipShape(Capsule())
+            }
+            .sheet(isPresented: $cameraViewShown){
+                CameraView(image: $selectedImage)
+            }
+            PhotosPicker(selection: $selectedItem, matching: .images){
+                Text("Pick Image")
+                    .frame(width: 130)
+                    .padding()
+                    .foregroundStyle(Colours.text)
+                    .background(Colours.cambridgeBlue1)
+                    .clipShape(Capsule())
+                    .onChange(of: selectedItem){ item in
+                        if let item = item{
+                            Task{
+                                if let data = try? await item.loadTransferable(type: Data.self){
+                                    let image = UIImage(data: data)
+                                    selectedImage = image
+                                }
                             }
                         }
                     }
-                }
+            }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Colours.bone)
     }
+}
+
+#Preview{
+    ImageView(selectedImage: .constant(UIImage(named: "Photo 1")!))
 }

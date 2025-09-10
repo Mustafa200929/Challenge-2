@@ -8,129 +8,278 @@
 import SwiftUI
 
 struct AchievementsView: View {
-    @EnvironmentObject var pointsManager: PointsPro
-    private let goal: Int = 5000
-    
-    var progress: Double {
-        Double(pointsManager.points) / Double(goal)
-    }
-    
+    let progress1: Double = 1.0
+    let progress2: Double = 0.65
+    let progress3: Double = 0.3
+    let progress4: Double = 0.0
+    @EnvironmentObject var pointsProcessor: PointsProcessor
     var body: some View {
-        VStack(spacing: 20) {
-            
-            // Title + Back
-            HStack {
-                Button(action: {
-                    // back action here
-                }) {
-                    Label("Back", systemImage: "chevron.left")
-                        .foregroundColor(.blue)
+        VStack {
+            Spacer()
+            VStack {
+                HStack {
+                    Image(systemName: "trophy")
+                        .resizable()
+                        .frame(width: 50, height: 50)
+                    Text("\(pointsProcessor.points)")
+                        .font(.title)
+                        .padding()
                 }
+                
+                Text("1800 points to Conformist")
+                    .padding()
+                
+                Spacer()
+                HStack {
+                    ZStack {
+                        Rectangle()
+                            .fill(.gray)
+                            .frame(width: 160, height: 180)
+                            .clipShape(RoundedRectangle(cornerRadius: 30))
+                            .opacity(0.3)
+                            .padding()
+                        
+                        VStack {
+                            ZStack {
+                                Circle()
+                                    .stroke(Color.gray.opacity(0.3), lineWidth: 8)
+                                    .frame(width: 120, height: 120)
+                                
+                                Circle()
+                                    .trim(from: 0, to: progress1)
+                                    .stroke(
+                                        Colours.cambridgeBlue2,
+                                        style: StrokeStyle(lineWidth: 8, lineCap: .round)
+                                    )
+                                    .rotationEffect(.degrees(-90))
+                                    .frame(width: 120, height: 120)
+                                    .animation(.easeOut(duration: 1.0), value: progress1)
+                                
+                                Text("\(Int(progress1 * 100))%")
+                                    .frame(width: 100, height: 100)
+                                    .background(Colours.celadon)
+                                    .clipShape(Circle())
+                                    .foregroundColor(.white)
+                                    .bold()
+                            }
+                            
+                            Text("Conformist")
+                                .font(.headline)
+                        }
+                    }
+                    if pointsProcessor.noviceRebelUnlocked {
+                        ZStack {
+                            Rectangle()
+                                .fill(.gray)
+                                .frame(width: 160, height: 180)
+                                .clipShape(RoundedRectangle(cornerRadius: 30))
+                                .opacity(0.3)
+                                .padding()
+                            
+                            VStack {
+                                ZStack {
+                                    Circle()
+                                        .stroke(Color.gray.opacity(0.3), lineWidth: 8)
+                                        .frame(width: 120, height: 120)
+                                    
+                                    Circle()
+                                        .trim(from: 0, to: progress2)
+                                        .stroke(
+                                            Colours.cambridgeBlue2,
+                                            style: StrokeStyle(lineWidth: 8, lineCap: .round)
+                                        )
+                                        .rotationEffect(.degrees(-90))
+                                        .frame(width: 120, height: 120)
+                                        .animation(.easeOut(duration: 1.0), value: progress2)
+                                    
+                                    Text("\(Int(progress2 * 100))%")
+                                        .frame(width: 100, height: 100)
+                                        .background(Colours.celadon)
+                                        .clipShape(Circle())
+                                        .foregroundColor(.white)
+                                        .bold()
+                                }
+                                
+                                Text("Novice rebel")
+                                    .font(.headline)
+                            }
+                        }
+                    }else{
+                        ZStack {
+                            Rectangle()
+                                .fill(.gray)
+                                .frame(width: 160, height: 180)
+                                .clipShape(RoundedRectangle(cornerRadius: 30))
+                                .opacity(0.3)
+                                .padding()
+                            
+                            VStack {
+                                ZStack {
+                                    Circle()
+                                        .stroke(Color.gray.opacity(0.3), lineWidth: 8)
+                                        .frame(width: 120, height: 120)
+                                    
+                                    Image(systemName: "lock")
+                                        .frame(width: 100, height: 100)
+                                        .background(Colours.celadon)
+                                        .clipShape(Circle())
+                                        .foregroundColor(.white)
+                                        .bold()
+                                }
+                                
+                                Text("Novice rebel")
+                                    .font(.headline)
+                            }
+                        }
+                    }
+                }
+                
+                Spacer()
+                
+                HStack {
+                    if pointsProcessor.masterOfMismatchUnlocked {
+                        ZStack {
+                            Rectangle()
+                                .fill(.gray)
+                                .frame(width: 160, height: 180)
+                                .clipShape(RoundedRectangle(cornerRadius: 30))
+                                .opacity(0.3)
+                                .padding()
+                            
+                            VStack {
+                                ZStack {
+                                    Circle()
+                                        .stroke(Color.gray.opacity(0.3), lineWidth: 8)
+                                        .frame(width: 120, height: 120)
+                                    
+                                    Circle()
+                                        .trim(from: 0, to: progress3)
+                                        .stroke(
+                                            Colours.cambridgeBlue2,
+                                            style: StrokeStyle(lineWidth: 8, lineCap: .round)
+                                        )
+                                        .rotationEffect(.degrees(-90))
+                                        .frame(width: 120, height: 120)
+                                        .animation(.easeOut(duration: 1.0), value: progress3)
+                                    
+                                    Text("\(Int(progress3 * 100))%")
+                                        .frame(width: 100, height: 100)
+                                        .background(Colours.celadon)
+                                        .clipShape(Circle())
+                                        .foregroundColor(.white)
+                                        .bold()
+                                }
+                                
+                                Text("Mischief Master")
+                                    .font(.headline)
+                            }
+                        }
+                    }else{
+                        ZStack {
+                            Rectangle()
+                                .fill(.gray)
+                                .frame(width: 160, height: 180)
+                                .clipShape(RoundedRectangle(cornerRadius: 30))
+                                .opacity(0.3)
+                                .padding()
+                            
+                            VStack {
+                                ZStack {
+                                    Circle()
+                                        .stroke(Color.gray.opacity(0.3), lineWidth: 8)
+                                        .frame(width: 120, height: 120)
+                                    
+                                    Image(systemName: "lock")
+                                        .frame(width: 100, height: 100)
+                                        .background(Colours.celadon)
+                                        .clipShape(Circle())
+                                        .foregroundColor(.white)
+                                        .bold()
+                                }
+                                
+                                Text("Mischief Master")
+                                    .font(.headline)
+                            }
+                        }
+                    }
+                    
+                   if pointsProcessor.finalBossUnlocked{
+                       ZStack {
+                           Rectangle()
+                               .fill(.gray)
+                               .frame(width: 160, height: 180)
+                               .clipShape(RoundedRectangle(cornerRadius: 30))
+                               .opacity(0.3)
+                               .padding()
+                           
+                           VStack {
+                               ZStack {
+                                   Circle()
+                                       .stroke(Color.gray.opacity(0.3), lineWidth: 8)
+                                       .frame(width: 120, height: 120)
+                                   
+                                   Circle()
+                                       .trim(from: 0, to: progress4)
+                                       .stroke(
+                                           Colours.cambridgeBlue2,
+                                           style: StrokeStyle(lineWidth: 8, lineCap: .round)
+                                       )
+                                       .rotationEffect(.degrees(-90))
+                                       .frame(width: 120, height: 120)
+                                       .animation(.easeOut(duration: 1.0), value: progress4)
+                                   
+                                   Text("\(Int(progress4 * 100))%")
+                                       .frame(width: 100, height: 100)
+                                       .background(Colours.celadon)
+                                       .clipShape(Circle())
+                                       .foregroundColor(.white)
+                                       .bold()
+                               }
+                               
+                               Text("Final fashion boss")
+                                   .font(.headline)
+                           }
+                       }
+                   }else{
+                       ZStack {
+                           Rectangle()
+                               .fill(.gray)
+                               .frame(width: 160, height: 180)
+                               .clipShape(RoundedRectangle(cornerRadius: 30))
+                               .opacity(0.3)
+                               .padding()
+                           
+                           VStack {
+                               ZStack {
+                                   Circle()
+                                       .stroke(Color.gray.opacity(0.3), lineWidth: 8)
+                                       .frame(width: 120, height: 120)
+                                   
+                                   Image(systemName: "lock")
+                                       .frame(width: 100, height: 100)
+                                       .background(Colours.celadon)
+                                       .clipShape(Circle())
+                                       .foregroundColor(.white)
+                                       .bold()
+                               }
+                               
+                               Text("Mischief Master")
+                                   .font(.headline)
+                           }
+                       }
+                   }
+                }
+                
                 Spacer()
             }
-            .padding(.leading)
-            
-            Text("Achievements")
-                .font(.system(size: 28, weight: .bold))
-                .foregroundColor(.black)
-                .padding(.bottom, 10)
-            
-            // Points summary
-            VStack(spacing: 6) {
-                HStack {
-                    Image(systemName: "trophy.fill")
-                        .foregroundColor(.yellow)
-                    Text("\(pointsManager.points)/\(goal)")
-                        .font(.headline)
-                }
-                Text("\(goal - pointsManager.points) pts to next level")
-                    .font(.caption)
-                    .foregroundColor(.black.opacity(0.7))
-            }
-            
-            // Achievements Grid
-            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 24) {
-                
-                AchievementCard(
-                    progress: min(1.0, progress), // always between 0–1
-                    title: "Conformist",
-                    locked: progress < 0.2 // unlock at 20%+
-                )
-                
-                AchievementCard(
-                    progress: min(1.0, progress - 0.2), // progress after 20%
-                    title: "Novice Rebel",
-                    locked: progress < 0.4
-                )
-                
-                AchievementCard(
-                    progress: min(1.0, progress - 0.4),
-                    title: "Master of Mismatch",
-                    locked: progress < 0.7
-                )
-                
-                AchievementCard(
-                    progress: min(1.0, progress - 0.7),
-                    title: "Final Fashion Boss",
-                    locked: progress < 1.0
-                )
-            }
-            .padding(.top, 10)
-            
-            Spacer()
         }
-        .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Colours.bone)
     }
 }
 
-struct AchievementCard: View {
-    var progress: Double  // 0.0 to 1.0
-    var title: String
-    var locked: Bool = false
-    
-    var body: some View {
-        VStack {
-            ZStack {
-                Circle()
-                    .stroke(Color.teal.opacity(0.3), lineWidth: 8)
-                    .frame(width: 70, height: 70)
-                
-                Circle()
-                    .trim(from: 0, to: locked ? 0 : progress)
-                    .stroke(Color.teal, style: StrokeStyle(lineWidth: 8, lineCap: .round))
-                    .rotationEffect(.degrees(-90))
-                    .frame(width: 70, height: 70)
-                    .animation(.easeOut(duration: 1.0), value: progress)
-                
-                if locked {
-                    Image(systemName: "lock.fill")
-                        .foregroundColor(.gray)
-                        .font(.title2)
-                } else {
-                    Text("\(Int(progress * 100))%")
-                        .foregroundColor(.black)
-                        .font(.footnote)
-                        .bold()
-                }
-            }
-            Text(title)
-                .font(.footnote)
-                .multilineTextAlignment(.center)
-                .padding(.top, 6)
-        }
-        .frame(width: 120, height: 120)
-        .background(Color.white.opacity(0.8))
-        .clipShape(RoundedRectangle(cornerRadius: 16))
-        .shadow(radius: 4, y: 2)
-    }
-}
-
 #Preview {
-    let mock = PointsProcessor()
-    mock.points = 3200
-    return AchievementsView()
-        .environmentObject(mock)
+    AchievementsView()
+        .environmentObject(PointsProcessor())
 }
 

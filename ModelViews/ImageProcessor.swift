@@ -55,5 +55,37 @@ class ImageProcessor: ObservableObject {
         guard let bottomBrightness = currentSession.bottomBrightness else {return}
         currentSession.points = AllocatePoints(topType: topType, bottomType: bottomType, topBrightness: topBrightness, bottomBrightness: bottomBrightness)
     }
+    
+    func getChallenges()->(String,String){
+        let challenge = Pairings.randomElement()!
+        let bottom = challenge[0]
+        let top = challenge[1]
+        return(bottom,top)
+    }
+    
+    func evaluateChallenge(bottom: String, top: String){
+        guard let topType = currentSession.topType else {return}
+        guard let bottomType = currentSession.bottomType else {return}
+        if topType == top && bottomType == bottom{
+            currentSession.challengePassed = true
+        }else{
+            currentSession.challengePassed = false
+        }
+    }
+    
+    func convertToReadableString(bottom: String, top: String)->(String, String){
+        var bottomReadable = ""
+        var topReadable = ""
+        switch bottom{
+        case "denim_bottom": bottomReadable = "Denim Bottom"
+        case "patterned_bottom": bottomReadable = "Patterned Bottom"
+        default: bottomReadable = bottom
+        }
+        switch top{
+        case "denim_top": topReadable = "Denim Top"
+        case "patterned_top": topReadable = "Patterned Top"
+        default: topReadable = top
+        }
+        return(bottomReadable, topReadable)
+    }
 }
-

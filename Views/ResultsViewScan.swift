@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-struct ResultsView: View {
+struct ResultsViewScan: View {
     @EnvironmentObject var processor: ImageProcessor
     @Environment(\.dismiss) private var dismiss
     var body: some View {
@@ -59,7 +59,7 @@ struct ResultsView: View {
     mockProcessor.currentSession.bottomType = "Jeans"
     mockProcessor.currentSession.points = 3
     
-    return ResultsView()
+   return ResultsViewScan()
         .environmentObject(mockProcessor)
 }
 

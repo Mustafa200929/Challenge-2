@@ -9,16 +9,18 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var selectedImage: UIImage?
+    @EnvironmentObject var pointsProcessor: PointsProcessor
     var body: some View {
         NavigationStack{
             VStack{
                 HStack{
-                    HStack{
-                        Image(systemName: "trophy")
-                        Button{
+                        NavigationLink{
                             
                         }label:{
-                            Text("200")
+                            HStack{
+                            Image(systemName: "trophy")
+                                    .foregroundStyle(Colours.text)
+                            Text("\(pointsProcessor.points)")
                                 .foregroundStyle(Colours.text)
                         }
                     }
@@ -52,7 +54,7 @@ struct HomeView: View {
                 
                 Text("200 credits")
                 NavigationLink{
-                    //
+                    ImageViewChallenge(selectedImage: $selectedImage)
                 }label:{
                     Text("Solve daily quest")
                         .frame(width: 250)
@@ -88,4 +90,5 @@ struct HomeView: View {
 
 #Preview{
     HomeView()
+        .environmentObject(PointsProcessor())
 }

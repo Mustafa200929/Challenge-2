@@ -6,9 +6,11 @@
 //
 import SwiftUI
 
-struct ResultsView: View {
+struct ResultsViewChallenge: View {
     @EnvironmentObject var processor: ImageProcessor
     @Environment(\.dismiss) private var dismiss
+    @Binding var topReadable: String
+    @Binding var bottomReadable: String
     var body: some View {
         VStack{
             ZStack{
@@ -22,24 +24,32 @@ struct ResultsView: View {
                         Text("Sorry! Processing failed. Please try again.")
                     }
                 VStack{
-                    Text("Score: \(processor.currentSession.points)/5\nYou have earned \(processor.currentSession.points*10) points!")
-                        .padding()
-                        .foregroundStyle(Colours.text)
-                        .background(Colours.celadon)
-                        .opacity(0.85)
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
-                        .multilineTextAlignment(.center)
-                        .frame(width: 300)
-
-                    if let message = Messages[processor.currentSession.points]{
-                        Text(message)
+                    if processor.currentSession.challengePassed == true{
+                        Text("Passed✅\nYou have earned 100 points!")
+                            .padding()
+                            .foregroundStyle(Colours.text)
+                            .background(Colours.celadon)
+                            .opacity(0.85)
+                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                            .multilineTextAlignment(.center)
+                            .frame(width: 300)
+                    }else{
+                        Text("Failed❌\nYou did not earn any points this time.")
+                            .padding()
+                            .foregroundStyle(Colours.text)
+                            .background(Colours.celadon)
+                            .opacity(0.85)
+                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                            .multilineTextAlignment(.center)
+                            .frame(width: 300)
+                        Text("Erm... Where's the \(bottomReadable) the with \(topReadable)??")
                             .padding()
                             .foregroundStyle(Colours.text)
                             .background(Colours.cambridgeBlue2)
                             .opacity(0.85)
                             .clipShape(RoundedRectangle(cornerRadius: 20))
                             .multilineTextAlignment(.center)
-                            .frame(width:300)
+                            .frame(width: 300)
                             .font(.headline)
                     }
                 }
@@ -55,12 +65,16 @@ struct ResultsView: View {
 #Preview {
     let mockProcessor = ImageProcessor()
     mockProcessor.currentSession.originalImage = UIImage(named: "Photo 5")
-    mockProcessor.currentSession.topType = "T-shirt"
-    mockProcessor.currentSession.bottomType = "Jeans"
+    mockProcessor.currentSession.topType = "denim_top"
+    mockProcessor.currentSession.bottomType = "denim_bottom"
+    mockProcessor.currentSession.challengePassed = false
     mockProcessor.currentSession.points = 3
-    
-    return ResultsView()
-        .environmentObject(mockProcessor)
+
+    return ResultsViewChallenge(
+        topReadable: .constant("Denim Top"),
+        bottomReadable: .constant("Denim Bottom")
+    )
+    .environmentObject(mockProcessor)
 }
 
 
