@@ -78,6 +78,7 @@ struct AchievementsView: View {
 
 #Preview {
     AchievementsView()
-        .environmentObject(PointsProcessor())
+    .environmentObject(PointsProcessor())
+    .environmentObject(ImageProcessor())
 }
 

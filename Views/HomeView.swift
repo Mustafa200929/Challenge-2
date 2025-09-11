@@ -22,6 +22,7 @@ struct HomeView: View {
                                 .foregroundStyle(Colours.text)
                             Text("\(pointsProcessor.points)")
                                 .foregroundStyle(Colours.text)
+                                .font(.caption.weight(.semibold))
                         }
                     }
                     .padding()
@@ -34,11 +35,13 @@ struct HomeView: View {
                             .padding()
                             .background(Colours.cambridgeBlue1)
                             .clipShape(RoundedRectangle(cornerRadius: .infinity))
+                            .font(.callout.weight(.medium))
                     }else{
                         Text(achievement)
                             .padding()
                             .background(Colours.cambridgeBlue1)
                             .clipShape(RoundedRectangle(cornerRadius: .infinity))
+                            .font(.callout.weight(.medium))
                     }
                 }
                 .frame(maxWidth: .infinity)
@@ -47,12 +50,14 @@ struct HomeView: View {
                 .padding(.bottom, 20)
                 
                 Text("Past Outfits")
+                    .font(.title3.weight(.semibold))
                 TabView {
-                    ForEach(2..<8){ index in
+                    ForEach(2..<6){ index in
                         Image("Photo \(index)")
                             .resizable()
                             .scaledToFit()
-                            .clipShape(RoundedRectangle(cornerRadius: 40))
+                            .clipShape(RoundedRectangle(cornerRadius: 30))
+                            .shadow(radius: 4)
                     }
                 }
                 .tabViewStyle(.page)
@@ -60,14 +65,15 @@ struct HomeView: View {
                 .padding(.bottom, 20)
                 
                 
-                Text("200 credits")
+                Text("100 credits")
+                    .font(.footnote.weight(.regular))
                 NavigationLink{
                     ImageViewChallenge(selectedImage: $selectedImage)
                 }label:{
                     Text("Solve daily quest")
                         .frame(width: 250)
                         .padding()
-                        .font(.title2)
+                        .font(.headline.weight(.semibold))
                         .bold()
                         .foregroundStyle(Color.black)
                         .background(Colours.airForceBlue)
@@ -75,14 +81,15 @@ struct HomeView: View {
                         .padding(.bottom, 20)
                 }
                 
-                Text("10-100 credits")
+                Text("10-50 credits")
+                    .font(.footnote.weight(.regular))
                 NavigationLink{
                     ImageView(selectedImage: $selectedImage)
                 }label:{
                     Text("Scan your outfit")
                         .frame(width: 250)
                         .padding()
-                        .font(.title2)
+                        .font(.headline.weight(.semibold))
                         .bold()
                         .foregroundStyle(Color.black)
                         .background(Colours.airForceBlue)
@@ -99,4 +106,5 @@ struct HomeView: View {
 #Preview{
     HomeView()
         .environmentObject(PointsProcessor())
+        .environmentObject(ImageProcessor())
 }

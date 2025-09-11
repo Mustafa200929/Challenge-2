@@ -14,18 +14,25 @@ struct ImageViewChallenge: View{
     @State private var cameraViewShown: Bool = false
     @State private var finalBottomImage: Image?
     @State private var finalTopImage: Image?
-    @StateObject var processor = ImageProcessor()
+    @EnvironmentObject var processor: ImageProcessor
     @State private var topRaw: String = ""
     @State private var bottomRaw: String = ""
     @State private var bottomReadable: String = ""
     @State private var topReadable: String = ""
+    @State private var resultsViewShown: Bool = false
     
     var body: some View{
         VStack{
             HStack{
                 Image(systemName: "target")
+                    .resizable()
+                    .frame(width:30, height:30)
                 Text("Wear a \(bottomReadable) with a \(topReadable)")
+                    .font(.headline)
             }
+            .padding()
+            Text("Ensure your entire outfit is visible in the photo")
+                .font(.caption)
             if let selectedImage{
                 Image(uiImage: selectedImage)
                     .resizable()
@@ -33,13 +40,11 @@ struct ImageViewChallenge: View{
                     .clipShape(RoundedRectangle(cornerRadius: 40))
                     .padding()
                 
-                NavigationLink{
-                    ResultsViewChallenge(topReadable: $topReadable, bottomReadable: $bottomReadable)
-                        .environmentObject(processor)
-                        .onAppear{
-                            processor.execute(image: selectedImage)
-                            processor.evaluateChallenge(bottom: bottomRaw, top: topRaw)
-                        }
+                Button{
+                    resultsViewShown.toggle()
+                        processor.execute(image: selectedImage)
+                        processor.evaluateChallenge(bottom: bottomRaw, top: topRaw)
+                        
                 }label:{
                     Text("Evaluate Image")
                         .frame(width: 130)
@@ -47,6 +52,9 @@ struct ImageViewChallenge: View{
                         .foregroundStyle(Colours.text)
                         .background(Colours.airForceBlue)
                         .clipShape(Capsule())
+                }
+                .fullScreenCover(isPresented: $resultsViewShown){
+                    ResultsViewChallenge(topReadable: $topReadable, bottomReadable: $bottomReadable)
                 }
             }else{
                 Text("No image selected")
@@ -100,4 +108,5 @@ struct ImageViewChallenge: View{
 
 #Preview{
     ImageViewChallenge(selectedImage: .constant(UIImage(named: "Photo 2")!))
+        .environmentObject(ImageProcessor())
 }

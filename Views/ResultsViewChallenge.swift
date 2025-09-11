@@ -9,11 +9,23 @@ import SwiftUI
 struct ResultsViewChallenge: View {
     @EnvironmentObject var processor: ImageProcessor
     @EnvironmentObject var pointsProcessor: PointsProcessor
-    @Environment(\.dismiss) private var dismiss
     @Binding var topReadable: String
     @Binding var bottomReadable: String
+    @State private var showHome = false
     var body: some View {
         VStack{
+            HStack{
+                Button{
+                    showHome.toggle()
+                }label:{
+                    Image(systemName: "house")
+                        .padding(.leading)
+                    Spacer()
+                }
+                .fullScreenCover(isPresented: $showHome) {
+                    HomeView()
+                }
+            }
             ZStack{
                     if let originalImage = processor.currentSession.originalImage{
                         Image(uiImage: originalImage)

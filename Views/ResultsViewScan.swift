@@ -11,8 +11,24 @@ struct ResultsViewScan: View {
     @EnvironmentObject var pointsProcessor: PointsProcessor
     @Environment(\.dismiss) private var dismiss
     @State private var pointsNotAdded = true
+    @State private var showHome: Bool = false
     var body: some View {
         VStack{
+            HStack{
+                Button{
+                    showHome.toggle()
+                }label:{
+                    Image(systemName: "house")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .padding(.leading,30)
+                        .foregroundStyle(Colours.text)
+                    Spacer()
+                }
+                .fullScreenCover(isPresented: $showHome) {
+                    HomeView()
+                }
+            }
             ZStack{
                     if let originalImage = processor.currentSession.originalImage{
                         Image(uiImage: originalImage)

@@ -13,10 +13,14 @@ struct ImageView: View{
     @State private var cameraViewShown: Bool = false
     @State private var finalBottomImage: Image?
     @State private var finalTopImage: Image?
-    @StateObject var processor = ImageProcessor()
+    @EnvironmentObject var processor: ImageProcessor
     @EnvironmentObject var pointsProcessor: PointsProcessor
+    @State private var resultsViewShown: Bool = false
     var body: some View{
         VStack{
+            Text("Ensure your entire outfit is visible in the photo")
+                .font(.caption)
+                .padding()
             if let selectedImage{
                 Image(uiImage: selectedImage)
                     .resizable()
@@ -24,11 +28,9 @@ struct ImageView: View{
                     .clipShape(RoundedRectangle(cornerRadius: 40))
                     .padding()
                 
-                NavigationLink{
-                    ResultsViewScan().environmentObject(processor)
-                        .onAppear{
-                            processor.execute(image: selectedImage)
-                        }
+                Button{
+                    resultsViewShown.toggle()
+                    processor.execute(image: selectedImage)
                 }label:{
                     Text("Evaluate Image")
                         .frame(width: 130)
@@ -36,6 +38,9 @@ struct ImageView: View{
                         .foregroundStyle(Colours.text)
                         .background(Colours.airForceBlue)
                         .clipShape(Capsule())
+                }
+                .fullScreenCover(isPresented: $resultsViewShown){
+                    ResultsViewScan()
                 }
             }else{
                 Text("No image selected")
@@ -80,5 +85,6 @@ struct ImageView: View{
 }
 
 #Preview{
-    ImageView(selectedImage: .constant(UIImage(named: "Photo 1")!))
+    ImageView(selectedImage: .constant(UIImage(named: "Photo 2")!))
+        .environmentObject(ImageProcessor())
 }

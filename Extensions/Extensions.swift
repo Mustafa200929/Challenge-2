@@ -53,7 +53,7 @@ let Messages = [
 
 let Pairings = [
     ["denim_top","denim_bottom"],
-    ["denim_top","patterned_top"],
+    ["denim_top","patterned_bottom"],
     ["patterned_top","denim_bottom"],
     ["patterned_top","patterned_bottom"]
 ]
