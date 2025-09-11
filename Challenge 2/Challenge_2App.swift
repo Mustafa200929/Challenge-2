@@ -11,11 +11,14 @@ import SwiftUI
 struct Challenge_2App: App {
     @StateObject var pointsProcessor = PointsProcessor()
     @StateObject var processor = ImageProcessor()
+    @StateObject var storageProcessor = StorageProcessor()
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(pointsProcessor)
                 .environmentObject(processor)
+                .environmentObject(storageProcessor)
+            
         }
     }
 }

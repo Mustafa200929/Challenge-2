@@ -9,6 +9,7 @@ import SwiftUI
 struct ResultsViewScan: View {
     @EnvironmentObject var processor: ImageProcessor
     @EnvironmentObject var pointsProcessor: PointsProcessor
+    @EnvironmentObject var storageProcessor: StorageProcessor
     @Environment(\.dismiss) private var dismiss
     @State private var pointsNotAdded = true
     @State private var showHome: Bool = false
@@ -25,6 +26,22 @@ struct ResultsViewScan: View {
                         .foregroundStyle(Colours.text)
                     Spacer()
                 }
+                .buttonStyle(.plain)
+                .fullScreenCover(isPresented: $showHome) {
+                    HomeView()
+                }
+                Button{
+                    storageProcessor.images.insert(processor.currentSession.originalImage!, at:0)
+                    showHome.toggle()
+                }label:{
+                    Text("Save Outfit?")
+                        .padding()
+                        .background(Colours.airForceBlue)
+                        .clipShape(Capsule())
+                        .padding(.trailing)
+                        .foregroundStyle(Colours.text)
+                }
+                .buttonStyle(.plain)
                 .fullScreenCover(isPresented: $showHome) {
                     HomeView()
                 }
@@ -88,6 +105,7 @@ struct ResultsViewScan: View {
    return ResultsViewScan()
         .environmentObject(mockProcessor)
         .environmentObject(PointsProcessor())
+        .environmentObject(StorageProcessor())
 }
 
 

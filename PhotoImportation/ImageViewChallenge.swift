@@ -53,6 +53,7 @@ struct ImageViewChallenge: View{
                         .background(Colours.airForceBlue)
                         .clipShape(Capsule())
                 }
+                .buttonStyle(.plain)
                 .fullScreenCover(isPresented: $resultsViewShown){
                     ResultsViewChallenge(topReadable: $topReadable, bottomReadable: $bottomReadable)
                 }
@@ -71,6 +72,7 @@ struct ImageViewChallenge: View{
                     .background(Colours.cambridgeBlue1)
                     .clipShape(Capsule())
             }
+            .buttonStyle(.plain)
             .sheet(isPresented: $cameraViewShown){
                 CameraView(image: $selectedImage)
             }
@@ -92,6 +94,7 @@ struct ImageViewChallenge: View{
                         }
                     }
             }
+            .buttonStyle(.plain)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Colours.bone)

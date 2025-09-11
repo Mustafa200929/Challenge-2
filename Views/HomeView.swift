@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @State private var selectedImage: UIImage?
     @EnvironmentObject var pointsProcessor: PointsProcessor
+    @EnvironmentObject var storageProcessor: StorageProcessor
     var body: some View {
         NavigationStack{
             VStack{
@@ -25,6 +26,7 @@ struct HomeView: View {
                                 .font(.caption.weight(.semibold))
                         }
                     }
+                    .buttonStyle(.plain)
                     .padding()
                     .background(Colours.cambridgeBlue2)
                     .clipShape(RoundedRectangle(cornerRadius: .infinity))
@@ -51,13 +53,17 @@ struct HomeView: View {
                 
                 Text("Past Outfits")
                     .font(.title3.weight(.semibold))
+                if storageProcessor.images == []{
+                    Text("No outfits saved yet!")
+                }
                 TabView {
-                    ForEach(2..<6){ index in
-                        Image("Photo \(index)")
+                    ForEach(storageProcessor.images.indices, id: \.self){ index in
+                        Image(uiImage: storageProcessor.images[index])
                             .resizable()
                             .scaledToFit()
                             .clipShape(RoundedRectangle(cornerRadius: 30))
                             .shadow(radius: 4)
+                            .padding()
                     }
                 }
                 .tabViewStyle(.page)
@@ -80,6 +86,7 @@ struct HomeView: View {
                         .clipShape(Capsule())
                         .padding(.bottom, 20)
                 }
+                .buttonStyle(.plain)
                 
                 Text("10-50 credits")
                     .font(.footnote.weight(.regular))
@@ -95,6 +102,7 @@ struct HomeView: View {
                         .background(Colours.airForceBlue)
                         .clipShape(Capsule())
                 }
+                .buttonStyle(.plain)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Colours.bone)
@@ -107,4 +115,5 @@ struct HomeView: View {
     HomeView()
         .environmentObject(PointsProcessor())
         .environmentObject(ImageProcessor())
+        .environmentObject(StorageProcessor())
 }

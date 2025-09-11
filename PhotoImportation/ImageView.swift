@@ -39,6 +39,7 @@ struct ImageView: View{
                         .background(Colours.airForceBlue)
                         .clipShape(Capsule())
                 }
+                .buttonStyle(.plain)
                 .fullScreenCover(isPresented: $resultsViewShown){
                     ResultsViewScan()
                 }
@@ -57,6 +58,7 @@ struct ImageView: View{
                     .background(Colours.cambridgeBlue1)
                     .clipShape(Capsule())
             }
+            .buttonStyle(.plain)
             .sheet(isPresented: $cameraViewShown){
                 CameraView(image: $selectedImage)
             }
@@ -78,6 +80,7 @@ struct ImageView: View{
                         }
                     }
             }
+            .buttonStyle(.plain)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Colours.bone)

@@ -9,6 +9,7 @@ import SwiftUI
 struct ResultsViewChallenge: View {
     @EnvironmentObject var processor: ImageProcessor
     @EnvironmentObject var pointsProcessor: PointsProcessor
+    @EnvironmentObject var storageProcessor: StorageProcessor
     @Binding var topReadable: String
     @Binding var bottomReadable: String
     @State private var showHome = false
@@ -19,12 +20,32 @@ struct ResultsViewChallenge: View {
                     showHome.toggle()
                 }label:{
                     Image(systemName: "house")
-                        .padding(.leading)
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .padding(.leading,30)
+                        .foregroundStyle(Colours.text)
                     Spacer()
                 }
+                .buttonStyle(.plain)
                 .fullScreenCover(isPresented: $showHome) {
                     HomeView()
                 }
+                Button{
+                    storageProcessor.images.insert(processor.currentSession.originalImage!, at:0)
+                    showHome.toggle()
+                }label:{
+                    Text("Save Outfit?")
+                        .padding()
+                        .background(Colours.airForceBlue)
+                        .clipShape(Capsule())
+                        .padding(.trailing)
+                        .foregroundStyle(Colours.text)
+                }
+                .buttonStyle(.plain)
+                .fullScreenCover(isPresented: $showHome) {
+                    HomeView()
+                }
+
             }
             ZStack{
                     if let originalImage = processor.currentSession.originalImage{
@@ -92,6 +113,7 @@ struct ResultsViewChallenge: View {
     )
     .environmentObject(mockProcessor)
     .environmentObject(PointsProcessor())
+    .environmentObject(StorageProcessor())
 }
 
 
