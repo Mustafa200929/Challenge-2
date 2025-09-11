@@ -8,6 +8,7 @@ import SwiftUI
 
 struct ResultsViewChallenge: View {
     @EnvironmentObject var processor: ImageProcessor
+    @EnvironmentObject var pointsProcessor: PointsProcessor
     @Environment(\.dismiss) private var dismiss
     @Binding var topReadable: String
     @Binding var bottomReadable: String
@@ -33,6 +34,9 @@ struct ResultsViewChallenge: View {
                             .clipShape(RoundedRectangle(cornerRadius: 20))
                             .multilineTextAlignment(.center)
                             .frame(width: 300)
+                            .onAppear{
+                                    pointsProcessor.addPoints(value: 100)
+                            }
                     }else{
                         Text("Failed❌\nYou did not earn any points this time.")
                             .padding()
@@ -75,6 +79,7 @@ struct ResultsViewChallenge: View {
         bottomReadable: .constant("Denim Bottom")
     )
     .environmentObject(mockProcessor)
+    .environmentObject(PointsProcessor())
 }
 
 

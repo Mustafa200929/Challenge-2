@@ -8,10 +8,7 @@
 import SwiftUI
 
 struct AchievementsView: View {
-    let progress1: Double = 1.0
-    let progress2: Double = 0.65
-    let progress3: Double = 0.3
-    let progress4: Double = 0.0
+
     @EnvironmentObject var pointsProcessor: PointsProcessor
     var body: some View {
         VStack {
@@ -25,251 +22,52 @@ struct AchievementsView: View {
                         .font(.title)
                         .padding()
                 }
-                
-                Text("1800 points to Conformist")
-                    .padding()
-                
+                let (tagline, points) = pointsProcessor.getValueToAchievement()
+                if points == 0{
+                    Text("You have beaten the game")
+                        .padding()
+                }else{
+                    Text("Points to achieve \(tagline): \(points)")
+                        .padding()
+                }
                 Spacer()
                 HStack {
-                    ZStack {
-                        Rectangle()
-                            .fill(.gray)
-                            .frame(width: 160, height: 180)
-                            .clipShape(RoundedRectangle(cornerRadius: 30))
-                            .opacity(0.3)
-                            .padding()
-                        
-                        VStack {
-                            ZStack {
-                                Circle()
-                                    .stroke(Color.gray.opacity(0.3), lineWidth: 8)
-                                    .frame(width: 120, height: 120)
-                                
-                                Circle()
-                                    .trim(from: 0, to: progress1)
-                                    .stroke(
-                                        Colours.cambridgeBlue2,
-                                        style: StrokeStyle(lineWidth: 8, lineCap: .round)
-                                    )
-                                    .rotationEffect(.degrees(-90))
-                                    .frame(width: 120, height: 120)
-                                    .animation(.easeOut(duration: 1.0), value: progress1)
-                                
-                                Text("\(Int(progress1 * 100))%")
-                                    .frame(width: 100, height: 100)
-                                    .background(Colours.celadon)
-                                    .clipShape(Circle())
-                                    .foregroundColor(.white)
-                                    .bold()
-                            }
-                            
-                            Text("Conformist")
-                                .font(.headline)
-                        }
+                    if pointsProcessor.points > pointsProcessor.achievements.Conformist {
+                        achievementCardExcess(title: "Conformist")
+                    }
+                    else{
+                        achievementCard(pointsInt: pointsProcessor.points, title: "Conformist", thresholdInt: pointsProcessor.achievements.Conformist)
                     }
                     if pointsProcessor.noviceRebelUnlocked {
-                        ZStack {
-                            Rectangle()
-                                .fill(.gray)
-                                .frame(width: 160, height: 180)
-                                .clipShape(RoundedRectangle(cornerRadius: 30))
-                                .opacity(0.3)
-                                .padding()
-                            
-                            VStack {
-                                ZStack {
-                                    Circle()
-                                        .stroke(Color.gray.opacity(0.3), lineWidth: 8)
-                                        .frame(width: 120, height: 120)
-                                    
-                                    Circle()
-                                        .trim(from: 0, to: progress2)
-                                        .stroke(
-                                            Colours.cambridgeBlue2,
-                                            style: StrokeStyle(lineWidth: 8, lineCap: .round)
-                                        )
-                                        .rotationEffect(.degrees(-90))
-                                        .frame(width: 120, height: 120)
-                                        .animation(.easeOut(duration: 1.0), value: progress2)
-                                    
-                                    Text("\(Int(progress2 * 100))%")
-                                        .frame(width: 100, height: 100)
-                                        .background(Colours.celadon)
-                                        .clipShape(Circle())
-                                        .foregroundColor(.white)
-                                        .bold()
-                                }
-                                
-                                Text("Novice rebel")
-                                    .font(.headline)
-                            }
+                        if pointsProcessor.points > pointsProcessor.achievements.Novice_rebel {
+                            achievementCardExcess(title: "Novice rebel")
                         }
-                    }else{
-                        ZStack {
-                            Rectangle()
-                                .fill(.gray)
-                                .frame(width: 160, height: 180)
-                                .clipShape(RoundedRectangle(cornerRadius: 30))
-                                .opacity(0.3)
-                                .padding()
-                            
-                            VStack {
-                                ZStack {
-                                    Circle()
-                                        .stroke(Color.gray.opacity(0.3), lineWidth: 8)
-                                        .frame(width: 120, height: 120)
-                                    
-                                    Image(systemName: "lock")
-                                        .frame(width: 100, height: 100)
-                                        .background(Colours.celadon)
-                                        .clipShape(Circle())
-                                        .foregroundColor(.white)
-                                        .bold()
-                                }
-                                
-                                Text("Novice rebel")
-                                    .font(.headline)
-                            }
+                        else{
+                            achievementCard(pointsInt: pointsProcessor.points, title: "Novice rebel", thresholdInt: pointsProcessor.achievements.Novice_rebel)
                         }
-                    }
+                    }else{achievementCardLocked(title: "Novice rebel")}
                 }
-                
                 Spacer()
-                
                 HStack {
                     if pointsProcessor.masterOfMismatchUnlocked {
-                        ZStack {
-                            Rectangle()
-                                .fill(.gray)
-                                .frame(width: 160, height: 180)
-                                .clipShape(RoundedRectangle(cornerRadius: 30))
-                                .opacity(0.3)
-                                .padding()
-                            
-                            VStack {
-                                ZStack {
-                                    Circle()
-                                        .stroke(Color.gray.opacity(0.3), lineWidth: 8)
-                                        .frame(width: 120, height: 120)
-                                    
-                                    Circle()
-                                        .trim(from: 0, to: progress3)
-                                        .stroke(
-                                            Colours.cambridgeBlue2,
-                                            style: StrokeStyle(lineWidth: 8, lineCap: .round)
-                                        )
-                                        .rotationEffect(.degrees(-90))
-                                        .frame(width: 120, height: 120)
-                                        .animation(.easeOut(duration: 1.0), value: progress3)
-                                    
-                                    Text("\(Int(progress3 * 100))%")
-                                        .frame(width: 100, height: 100)
-                                        .background(Colours.celadon)
-                                        .clipShape(Circle())
-                                        .foregroundColor(.white)
-                                        .bold()
-                                }
-                                
-                                Text("Mischief Master")
-                                    .font(.headline)
-                            }
+                        if pointsProcessor.points > pointsProcessor.achievements.Mismatch_master {
+                            achievementCardExcess(title: "Mismatch master")
+                        }else{
+                            achievementCard(pointsInt: pointsProcessor.points, title: "Mismatch master", thresholdInt: pointsProcessor.achievements.Mismatch_master)
                         }
                     }else{
-                        ZStack {
-                            Rectangle()
-                                .fill(.gray)
-                                .frame(width: 160, height: 180)
-                                .clipShape(RoundedRectangle(cornerRadius: 30))
-                                .opacity(0.3)
-                                .padding()
-                            
-                            VStack {
-                                ZStack {
-                                    Circle()
-                                        .stroke(Color.gray.opacity(0.3), lineWidth: 8)
-                                        .frame(width: 120, height: 120)
-                                    
-                                    Image(systemName: "lock")
-                                        .frame(width: 100, height: 100)
-                                        .background(Colours.celadon)
-                                        .clipShape(Circle())
-                                        .foregroundColor(.white)
-                                        .bold()
-                                }
-                                
-                                Text("Mischief Master")
-                                    .font(.headline)
-                            }
-                        }
+                        achievementCardLocked(title: "Mismatch master")
                     }
-                    
-                   if pointsProcessor.finalBossUnlocked{
-                       ZStack {
-                           Rectangle()
-                               .fill(.gray)
-                               .frame(width: 160, height: 180)
-                               .clipShape(RoundedRectangle(cornerRadius: 30))
-                               .opacity(0.3)
-                               .padding()
-                           
-                           VStack {
-                               ZStack {
-                                   Circle()
-                                       .stroke(Color.gray.opacity(0.3), lineWidth: 8)
-                                       .frame(width: 120, height: 120)
-                                   
-                                   Circle()
-                                       .trim(from: 0, to: progress4)
-                                       .stroke(
-                                           Colours.cambridgeBlue2,
-                                           style: StrokeStyle(lineWidth: 8, lineCap: .round)
-                                       )
-                                       .rotationEffect(.degrees(-90))
-                                       .frame(width: 120, height: 120)
-                                       .animation(.easeOut(duration: 1.0), value: progress4)
-                                   
-                                   Text("\(Int(progress4 * 100))%")
-                                       .frame(width: 100, height: 100)
-                                       .background(Colours.celadon)
-                                       .clipShape(Circle())
-                                       .foregroundColor(.white)
-                                       .bold()
-                               }
-                               
-                               Text("Final fashion boss")
-                                   .font(.headline)
-                           }
-                       }
-                   }else{
-                       ZStack {
-                           Rectangle()
-                               .fill(.gray)
-                               .frame(width: 160, height: 180)
-                               .clipShape(RoundedRectangle(cornerRadius: 30))
-                               .opacity(0.3)
-                               .padding()
-                           
-                           VStack {
-                               ZStack {
-                                   Circle()
-                                       .stroke(Color.gray.opacity(0.3), lineWidth: 8)
-                                       .frame(width: 120, height: 120)
-                                   
-                                   Image(systemName: "lock")
-                                       .frame(width: 100, height: 100)
-                                       .background(Colours.celadon)
-                                       .clipShape(Circle())
-                                       .foregroundColor(.white)
-                                       .bold()
-                               }
-                               
-                               Text("Mischief Master")
-                                   .font(.headline)
-                           }
-                       }
-                   }
+                    if pointsProcessor.finalBossUnlocked{
+                        if pointsProcessor.points>pointsProcessor.achievements.Final_fashion_boss{
+                            achievementCardExcess(title: "Final fashion boss")
+                        }else{
+                            achievementCard(pointsInt: pointsProcessor.points, title: "Final fashion boss", thresholdInt: pointsProcessor.achievements.Final_fashion_boss)
+                        }
+                    }else{
+                        achievementCardLocked(title: "Final fashion boss")
+                    }
                 }
-                
                 Spacer()
             }
         }

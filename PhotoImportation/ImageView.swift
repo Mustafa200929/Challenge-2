@@ -28,7 +28,6 @@ struct ImageView: View{
                     ResultsViewScan().environmentObject(processor)
                         .onAppear{
                             processor.execute(image: selectedImage)
-                            pointsProcessor.addPoints(value: processor.currentSession.points)
                         }
                 }label:{
                     Text("Evaluate Image")

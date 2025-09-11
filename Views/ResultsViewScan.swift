@@ -8,7 +8,9 @@ import SwiftUI
 
 struct ResultsViewScan: View {
     @EnvironmentObject var processor: ImageProcessor
+    @EnvironmentObject var pointsProcessor: PointsProcessor
     @Environment(\.dismiss) private var dismiss
+    @State private var pointsNotAdded = true
     var body: some View {
         VStack{
             ZStack{
@@ -30,6 +32,14 @@ struct ResultsViewScan: View {
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                         .multilineTextAlignment(.center)
                         .frame(width: 300)
+                        .onAppear{
+                            if pointsNotAdded{
+                                print(processor.currentSession.points)
+                                print(processor.currentSession.points*10)
+                                pointsProcessor.addPoints(value: processor.currentSession.points*10)
+                                pointsNotAdded = false
+                            }
+                        }
 
                     if let message = Messages[processor.currentSession.points]{
                         Text(message)
@@ -61,6 +71,7 @@ struct ResultsViewScan: View {
     
    return ResultsViewScan()
         .environmentObject(mockProcessor)
+        .environmentObject(PointsProcessor())
 }
 
 

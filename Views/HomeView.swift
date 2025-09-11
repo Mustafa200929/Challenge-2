@@ -14,12 +14,12 @@ struct HomeView: View {
         NavigationStack{
             VStack{
                 HStack{
-                        NavigationLink{
-                            
-                        }label:{
-                            HStack{
+                    NavigationLink{
+                        AchievementsView()
+                    }label:{
+                        HStack{
                             Image(systemName: "trophy")
-                                    .foregroundStyle(Colours.text)
+                                .foregroundStyle(Colours.text)
                             Text("\(pointsProcessor.points)")
                                 .foregroundStyle(Colours.text)
                         }
@@ -28,10 +28,18 @@ struct HomeView: View {
                     .background(Colours.cambridgeBlue2)
                     .clipShape(RoundedRectangle(cornerRadius: .infinity))
                     Spacer()
-                    Text("CONFORMIST") //integrate with backend later
-                        .padding()
-                        .background(Colours.cambridgeBlue2)
-                        .clipShape(RoundedRectangle(cornerRadius: .infinity))
+                    let(achievement) = pointsProcessor.checkUnlocked()
+                    if achievement == "" {
+                        Text("Play to unlock your first achievement!")
+                            .padding()
+                            .background(Colours.cambridgeBlue1)
+                            .clipShape(RoundedRectangle(cornerRadius: .infinity))
+                    }else{
+                        Text(achievement)
+                            .padding()
+                            .background(Colours.cambridgeBlue1)
+                            .clipShape(RoundedRectangle(cornerRadius: .infinity))
+                    }
                 }
                 .frame(maxWidth: .infinity)
                 .padding()
