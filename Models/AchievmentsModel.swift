@@ -7,10 +7,10 @@
 import SwiftUI
 
 struct Achievements{
-    let Conformist = 200
-    let Novice_rebel = 400
-    let Mismatch_master = 800
-    let Final_fashion_boss = 1600
+    let Conformist = 100
+    let Novice_rebel = 200
+    let Mismatch_master = 400
+    let Final_fashion_boss = 800
 }
 
 func achievementCard(pointsInt: Int, title: String, thresholdInt: Int) -> some View {
@@ -48,6 +48,7 @@ func achievementCard(pointsInt: Int, title: String, thresholdInt: Int) -> some V
             
             Text(title)
                 .font(.headline)
+                .scaleEffect(0.85)
         }
     }
 }
@@ -77,6 +78,7 @@ func achievementCardLocked(title: String) -> some View {
             
             Text(title)
                 .font(.headline)
+                .scaleEffect(0.85)
         }
     }
 }
@@ -116,6 +118,7 @@ func achievementCardExcess(title: String) -> some View {
             
             Text(title)
                 .font(.headline)
+                .scaleEffect(0.85)
         }
     }
 }

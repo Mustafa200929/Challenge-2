@@ -25,11 +25,11 @@ struct HomeView: View {
                                 .foregroundStyle(Colours.text)
                                 .font(.caption.weight(.semibold))
                         }
+                        .padding()
+                        .background(Colours.cambridgeBlue2)
+                        .clipShape(RoundedRectangle(cornerRadius: .infinity))
                     }
                     .buttonStyle(.plain)
-                    .padding()
-                    .background(Colours.cambridgeBlue2)
-                    .clipShape(RoundedRectangle(cornerRadius: .infinity))
                     Spacer()
                     let(achievement) = pointsProcessor.checkUnlocked()
                     if achievement == "" {
@@ -48,7 +48,7 @@ struct HomeView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding()
-                .background(Colours.celadon)
+                .background(Colours.celadon.ignoresSafeArea(edges: .top))
                 .padding(.bottom, 20)
                 
                 Text("Past Outfits")
@@ -76,7 +76,7 @@ struct HomeView: View {
                 NavigationLink{
                     ImageViewChallenge(selectedImage: $selectedImage)
                 }label:{
-                    Text("Solve daily quest")
+                    Text("Attempt quest")
                         .frame(width: 250)
                         .padding()
                         .font(.headline.weight(.semibold))

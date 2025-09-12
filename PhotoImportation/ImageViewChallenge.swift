@@ -47,7 +47,7 @@ struct ImageViewChallenge: View{
                         
                 }label:{
                     Text("Evaluate Image")
-                        .frame(width: 130)
+                        .frame(width: 150)
                         .padding()
                         .foregroundStyle(Colours.text)
                         .background(Colours.airForceBlue)
@@ -66,7 +66,7 @@ struct ImageViewChallenge: View{
                 cameraViewShown.toggle()
             }label:{
                 Text("Take photo")
-                    .frame(width: 130)
+                    .frame(width: 150)
                     .padding()
                     .foregroundStyle(Colours.text)
                     .background(Colours.cambridgeBlue1)
@@ -78,7 +78,7 @@ struct ImageViewChallenge: View{
             }
             PhotosPicker(selection: $selectedItem, matching: .images){
                 Text("Pick Image")
-                    .frame(width: 130)
+                    .frame(width: 150)
                     .padding()
                     .foregroundStyle(Colours.text)
                     .background(Colours.cambridgeBlue1)

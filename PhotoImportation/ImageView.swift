@@ -33,7 +33,7 @@ struct ImageView: View{
                     processor.execute(image: selectedImage)
                 }label:{
                     Text("Evaluate Image")
-                        .frame(width: 130)
+                        .frame(width: 150)
                         .padding()
                         .foregroundStyle(Colours.text)
                         .background(Colours.airForceBlue)
@@ -52,7 +52,7 @@ struct ImageView: View{
                 cameraViewShown.toggle()
             }label:{
                 Text("Take photo")
-                    .frame(width: 130)
+                    .frame(width: 150)
                     .padding()
                     .foregroundStyle(Colours.text)
                     .background(Colours.cambridgeBlue1)
@@ -64,7 +64,7 @@ struct ImageView: View{
             }
             PhotosPicker(selection: $selectedItem, matching: .images){
                 Text("Pick Image")
-                    .frame(width: 130)
+                    .frame(width: 150)
                     .padding()
                     .foregroundStyle(Colours.text)
                     .background(Colours.cambridgeBlue1)

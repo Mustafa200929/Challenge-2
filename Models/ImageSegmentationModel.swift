@@ -45,14 +45,7 @@ func makeMask(image: UIImage) -> (UIImage,UIImage)? {
     let (bottomCroppedImage,topCroppedImage) = cropImage(inputImage: compositeImage, hipPixelY: hipPixelY)
     let bottomCroppedUIImage = UIImage(cgImage: convertCIImageToCGImage(input:bottomCroppedImage))
     let topCroppedUIImage = UIImage(cgImage: convertCIImageToCGImage(input:topCroppedImage))
-   // let finalBottomImage = Image(decorative: convertCIImageToCGImage(input: bottomCroppedImage), scale: 1)
-   // let finalTopImage = Image(decorative: convertCIImageToCGImage(input: topCroppedImage), scale: 1)
     return (bottomCroppedUIImage,topCroppedUIImage)
-}
-
-func convertCIImageToCGImage(input: CIImage) -> CGImage! {
-    let context = CIContext(options: nil)
-    return context.createCGImage(input, from: input.extent)
 }
 
 func applyMask(mainImage: CIImage, maskImage: CIImage) -> CIImage {
@@ -62,6 +55,11 @@ func applyMask(mainImage: CIImage, maskImage: CIImage) -> CIImage {
     let scaledMaskImage = maskImage.transformed(by: scaleTransform)
     let compositeImage = mainImage.applyingFilter("CIBlendWithMask", parameters:[kCIInputMaskImageKey: scaledMaskImage])
     return compositeImage
+}
+
+func convertCIImageToCGImage(input: CIImage) -> CGImage! {
+    let context = CIContext(options: nil)
+    return context.createCGImage(input, from: input.extent)
 }
 
 func cropImage(inputImage: CIImage, hipPixelY: CGFloat) -> (CIImage, CIImage) {
